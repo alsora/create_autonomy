@@ -1,72 +1,71 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
+
 project(ca_driver)
 
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+find_package(create_cmake_module REQUIRED)
 find_package(libcreate REQUIRED)
 
-find_package(catkin REQUIRED COMPONENTS
+find_package(ament_cmake REQUIRED)
+find_package(ca_msgs REQUIRED)
+find_package(diagnostic_msgs REQUIRED)
+find_package(diagnostic_updater REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
+
+set(dependencies
+  libcreate
   ca_msgs
   diagnostic_msgs
   diagnostic_updater
   geometry_msgs
   nav_msgs
-  roscpp
-  roslint
+  rclcpp
   sensor_msgs
   std_msgs
-  tf
+  tf2
+  tf2_geometry_msgs
+  tf2_ros
 )
-
-catkin_package(
-  INCLUDE_DIRS include
-  CATKIN_DEPENDS
-    ca_msgs
-    diagnostic_msgs
-    diagnostic_updater
-    geometry_msgs
-    nav_msgs
-    roscpp
-    sensor_msgs
-    std_msgs
-    tf
-  DEPENDS libcreate
-)
-
-roslint_cpp()
-roslint_add_test()
 
 include_directories(
   include
   ${libcreate_INCLUDE_DIRS}
-  ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(${PROJECT_NAME} src/create_driver.cpp)
+set(LIBRARY_NAME ${PROJECT_NAME})
+add_library(${LIBRARY_NAME} SHARED src/create_driver_node.cpp)
+ament_target_dependencies(${LIBRARY_NAME} ${dependencies})
 
-target_link_libraries(${PROJECT_NAME}
-  ${libcreate_LIBRARIES}
-  ${catkin_LIBRARIES}
+add_executable(create_driver_main src/create_driver_main.cpp)
+target_link_libraries(create_driver_main ${LIBRARY_NAME})
+ament_target_dependencies(create_driver_main ${dependencies})
+
+install(TARGETS create_driver_main ${LIBRARY_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
-add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
-
-install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+install(DIRECTORY include/
+  DESTINATION include/
 )
 
-install(DIRECTORY include
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.h"
-  PATTERN ".svn" EXCLUDE
-)
+ament_export_include_directories(include)
+ament_export_libraries(${LIBRARY_NAME})
+ament_export_dependencies(${LIBRARY_DEPENDENCIES})
 
-install(DIRECTORY launch/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
-  PATTERN ".svn" EXCLUDE
-)
-
-install(DIRECTORY config/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
-  PATTERN ".svn" EXCLUDE
-)
+ament_package()
