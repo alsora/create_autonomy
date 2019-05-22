@@ -50,7 +50,7 @@ CreateDriverNode::CreateDriverNode()
   std::string robot_model_name = this->declare_parameter("robot_model", "CREATE_2");
   base_frame_ = this->declare_parameter("base_frame", "base_footprint");
   odom_frame_ = this->declare_parameter("odom_frame", "odom");
-  this->declare_parameter("latch_cmd_duration", 0.2);
+  latch_duration_ = this->declare_parameter("latch_cmd_duration", 0.2);
   loop_hz_ = this->declare_parameter("loop_hz", 10.0);
   publish_tf_ = this->declare_parameter("publish_tf", true);
 
