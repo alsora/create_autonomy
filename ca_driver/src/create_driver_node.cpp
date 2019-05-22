@@ -39,12 +39,8 @@ CreateDriverNode::CreateDriverNode()
     is_running_slowly_(false)
 {
 
-  node_ = std::shared_ptr<rclcpp::Node>(this, [](rclcpp::Node *) {});
-
-  tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(node_);
+  tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this->get_node_topics_interface());
   diagnostics_ = std::make_shared<diagnostic_updater::Updater>();
-
-  //TODO: add callback function
 
   dev_ = this->declare_parameter("dev", "/dev/ttyUSB0");
   std::string robot_model_name = this->declare_parameter("robot_model", "CREATE_2");
@@ -76,7 +72,6 @@ CreateDriverNode::CreateDriverNode()
 
   RCLCPP_INFO(this->get_logger(), "\"%s\" selected.", robot_model_name.c_str());
 
-  //TODO: add callback function
   baud_ = this->declare_parameter("baud", (int)model_.getBaud());
 
   robot_ = new create::Create(model_);

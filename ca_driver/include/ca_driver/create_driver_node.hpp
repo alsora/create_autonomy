@@ -150,7 +150,6 @@ private:
   rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr wheeldrop_pub_;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr wheel_joint_pub_;
 
-  rclcpp::Node::SharedPtr node_;
   rclcpp::TimerBase::SharedPtr timer_;
 
 public:
