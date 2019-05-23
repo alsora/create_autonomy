@@ -2,6 +2,11 @@
 Changelog for package create_driver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.0 (2019-05-23)
+------------------
+* Project ported to ROS2
+* Contributors: Alberto Soragna
+
 1.3.0 (2018-06-10)
 ------------------
 * Add explicit dependency on catkin_EXPORTED_TARGETS
