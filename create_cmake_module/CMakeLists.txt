@@ -8,6 +8,8 @@ find_package(libcreate QUIET)
 
 macro(build_libcreate)
     set(extra_cmake_args)
+    list(APPEND extra_cmake_args -DBUILD_SHARED_LIBS=ON)
+    list(APPEND extra_cmake_args -DBUILD_TESTING=OFF)
 
     if(DEFINED CMAKE_BUILD_TYPE)
         list(APPEND extra_cmake_args -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE})
@@ -25,7 +27,7 @@ macro(build_libcreate)
     ExternalProject_Add(libcreate-pkg
         GIT_REPOSITORY "https://github.com/AutonomyLab/libcreate.git"
         GIT_TAG "4e8d49702434de952daa19bf9b4a3904b15cea68"
-        TIMEOUT 60
+        TIMEOUT 120
         CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/libcreate_install
         ${extra_cmake_args}

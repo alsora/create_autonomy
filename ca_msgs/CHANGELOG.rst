@@ -2,6 +2,11 @@
 Changelog for package ca_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.0 (2019-05-23)
+------------------
+* Project ported to ROS2
+* Contributors: Alberto Soragna
+
 1.3.0 (2018-06-10)
 ------------------
 * Migrate to package.xml format 2

@@ -4,13 +4,17 @@
   <name>create_cmake_module</name>
   <version>1.0.0</version>
   <description>
-    Wrapper around libyaml, provides the last version (1.8.0 rc) that ships with a CMake module
+    Wrapper around libcreate, provides the last version
   </description>
-  <maintainer email="mikael@osrfoundation.org">Mikael Arguedas</maintainer>
-  <license>Apache License 2.0</license>  <!-- the contents of this package are Apache 2.0 -->
-  <license>MIT</license>  <!-- libyaml is MIT -->
 
-  <url type="website">https://github.com/yaml/libyaml</url>
+  <maintainer email="asoragna@irobot.com">Alberto Soragna</maintainer>
+
+  <license>Apache License 2.0</license>  <!-- the contents of this package are Apache 2.0 -->
+  <license>BSD</license>  <!-- libcreate is BSD -->
+
+  <author email="asoragna@irobot.com">Alberto Soragna</author>
+
+  <url type="website">https://github.com/AutonomyLab/libcreate</url>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

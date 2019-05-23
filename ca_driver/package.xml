@@ -2,8 +2,8 @@
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
   <name>ca_driver</name>
-  <version>1.3.0</version>
-  <description>ROS driver for iRobot's Create and Roomba platforms, based on libcreate</description>
+  <version>2.0.0</version>
+  <description>ROS2 driver for iRobot's Create and Roomba platforms, based on libcreate</description>
 
   <maintainer email="jperron@sfu.ca">Jacob Perron</maintainer>
   <maintainer email="asoragna@irobot.com">Alberto Soragna</maintainer>
@@ -13,6 +13,7 @@
   <url type="website">http://wiki.ros.org/ca_driver</url>
 
   <author email="jperron@sfu.ca">Jacob Perron</author>
+  <author email="asoragna@irobot.com">Alberto Soragna</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
